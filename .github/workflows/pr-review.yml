@@ -19,6 +19,7 @@ name: AI PR Review Agent
     - name: Run PR Review Agent
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        AZURE_OPENAI_API_KEY: ${{ secrets.AZURE_OPENAI_API_KEY }}
+        AZURE_OPENAI_API_KEY: ${{ secrets.AZURE_OPENAI_API_KEY }}      
+        PULL_REQUEST_NUMBER: ${{ github.event.pull_request.number }}
       run: |
         python review_pr.py
