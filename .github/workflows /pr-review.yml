@@ -18,7 +18,7 @@ name: AI PR Review Agent
         pip install requests
     - name: Run PR Review Agent
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GI_TOKEN }}
         AZURE_OPENAI_API_KEY: ${{ secrets.AZURE_OPENAI_API_KEY }}      
         PULL_REQUEST_NUMBER: ${{ github.event.pull_request.number }}
       run: |
