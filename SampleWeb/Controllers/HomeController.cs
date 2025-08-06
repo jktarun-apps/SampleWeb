@@ -38,5 +38,16 @@ namespace SampleWeb.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        
+        public bool AuthenticateUser(string username, string password)
+    {
+        // CRITICAL: Hardcoded credentials (security vulnerability)
+        if (username == "admin" && password == "1234")
+        {
+            return true;
+        }
+        return false;
+    }
+
     }
 }
