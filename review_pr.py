@@ -3,6 +3,7 @@ import json
 from typing import Dict
 from dotenv import load_dotenv
 import os
+import sys
 
 # Load environment variables from .env file
 load_dotenv()
@@ -122,9 +123,21 @@ if __name__ == "__main__":
         response = requests.post(AZURE_OPENAI_ENDPOINT, headers=openai_headers, json=openai_payload)
         review_result = response.json()
 
+        # Check for critical issues
+        critical_keywords = ["critical", "must fix", "security vulnerability", "unsafe", "high risk"]
+        if any(keyword.lower() in review_result['choices'][0]['message']['content'] for keyword in critical_keywords):
+            print("❌ Critical issues found in code review. Failing the workflow.")
+            print("Code Review Result:")
+            print(review_result['choices'][0]['message']['content'])
+            sys.exit(1)
+        
+        print("✅ No critical issues found.")
+
+
         # Step 4: Output review
-        print("Code Review Result:")
-        print(review_result['choices'][0]['message']['content'])
+        #print("Code Review Result:")
+        #print(review_result['choices'][0]['message']['content'])
 
     # for key, value in pr_review.items():
     #     print(f"{key}: {value}")
+
