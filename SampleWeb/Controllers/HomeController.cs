@@ -33,5 +33,21 @@ namespace SampleWeb.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+          [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult ErrorV5()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        
+        public bool AuthenticateUser(string username, string password)
+    {
+        // CRITICAL: Hardcoded credentials (security vulnerability)
+        if (username == "admin" && password == "1234")
+        {
+            return true;
+        }
+        return false;
+    }
+
     }
 }
